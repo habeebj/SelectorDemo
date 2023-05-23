@@ -10,19 +10,20 @@ namespace SelectorDemo.Core
         {
             services.TryAddSingleton<IMapper, Mapper>();
 
-            // if (assemblies.Count() == 0)
-            // {
-            //     assemblies = new Assembly[] { Assembly.GetExecutingAssembly() };
-            // }
+            if (assemblies.Count() == 0)
+            {
+                assemblies = new Assembly[] { Assembly.GetExecutingAssembly() };
+            }
 
-            // foreach (var assembly in assemblies)
-            // {
-            //     var configMapTypes = assembly.GetTypes().Where(t => t.IsAssignableTo(typeof(IConfigMap)) && !t.IsAbstract && !t.IsInterface);
-            //     foreach (var configMapType in configMapTypes)
-            //     {
-            //         services.AddTransient(typeof(IConfigMap), configMapType);
-            //     }
-            // }
+            foreach (var assembly in assemblies)
+            {
+                var configMapTypes = assembly.GetTypes().Where(t => t.IsAssignableTo(typeof(IConfigMap)) && !t.IsAbstract && !t.IsInterface);
+              
+                foreach (var configMapType in configMapTypes)
+                {
+                    services.AddTransient(typeof(IConfigMap), configMapType);
+                }
+            }
 
             return services;
         }

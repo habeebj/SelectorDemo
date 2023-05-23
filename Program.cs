@@ -1,13 +1,14 @@
-﻿using System.Reflection;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿
 using SelectorDemo;
+using System.Reflection;
 using SelectorDemo.Core;
 using SelectorDemo.Enums;
 using SelectorDemo.Models;
 using SelectorDemo.Options;
 using SelectorDemo.Services;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 IConfiguration? configuration = null;
 
@@ -19,7 +20,8 @@ using var host = Host.CreateDefaultBuilder(args)
     })
     .ConfigureServices(services =>
     {
-        services.Configure<TelcosPrefixAppSetting>(configuration!.GetSection(TelcosPrefixAppSetting.KEY));
+        var section = configuration!.GetRequiredSection(TelcosPrefixAppSetting.KEY);
+        services.Configure<TelcosPrefixAppSetting>(section);
         services.AddTransient<ITelcoResolver, TelcoResolver>();
         services.AddMapper(Assembly.GetExecutingAssembly());
     })

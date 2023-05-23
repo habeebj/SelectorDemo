@@ -19,8 +19,9 @@ namespace SelectorDemo.Core
 
         public TargetType Map(SourceType source)
         {
-            return OnMap((SourceType)source);
+            return OnMap(source);
         }
+
         public abstract TargetType OnMap(SourceType source);
     }
 }
