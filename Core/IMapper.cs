@@ -4,6 +4,6 @@ namespace SelectorDemo.Core
 {
     public interface IMapper
     {
-        IFeatureRequest Map<TInput>(BaseSelector selector, TInput input);
+        TargetType Map<TargetType, SourceType>(BaseSelector selector, SourceType source);
     }
 }

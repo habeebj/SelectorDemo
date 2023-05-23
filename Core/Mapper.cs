@@ -12,15 +12,15 @@ namespace SelectorDemo.Core
             _serviceProvider = serviceProvider;
         }
 
-        public IFeatureRequest Map<TInput>(BaseSelector selector, TInput input)
+        public TargetType Map<TargetType, SourceType>(BaseSelector selector, SourceType source)
         {
-            ArgumentNullException.ThrowIfNull(input);
+            ArgumentNullException.ThrowIfNull(source);
 
-            var configMap = _serviceProvider.GetServices<IConfigMap>()
+            dynamic configMap = _serviceProvider.GetServices<IConfigMap>()
                 .FirstOrDefault(x => x.Selector.Key == selector.Key)
                 ?? throw new InvalidOperationException("No Implementation for the selector " + selector.Key);
             
-            return configMap.Map(input);
+            return configMap.Map(source);
         }
     }
 }

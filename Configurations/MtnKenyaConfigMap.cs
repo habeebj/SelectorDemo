@@ -6,11 +6,11 @@ using SelectorDemo.OminCoreLib;
 
 namespace SelectorDemo.Configurations
 {
-    public class MtnKenyaConfigMap : ConfigMap<ApiRequest>
+    public class MtnKenyaConfigMap : ConfigMap<MtnKenyaRequest,ApiRequest>
     {
         public override BaseSelector Selector => new SimSwapSelector(CountryCode.KE, Telco.Mtn);
 
-        public override IFeatureRequest OnMap(ApiRequest input)
+        public override MtnKenyaRequest OnMap(ApiRequest input)
         {
             return new MtnKenyaRequest { PhoneNumber = input.PhoneNumber };
         }
