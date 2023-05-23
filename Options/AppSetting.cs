@@ -17,6 +17,6 @@ namespace SelectorDemo.Options
     public class TelcosPrefixAppSetting
     {
         public const string KEY = "TelcosPrefix";
-        public TelcoPrefix[] TelcosPrefix { get; set; } = null!;
+        public TelcoPrefix[] Telcos { get; set; } = null!;
     }
 }
