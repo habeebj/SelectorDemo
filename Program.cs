@@ -34,7 +34,7 @@ var apiRequest = new ApiRequest { PhoneNumber = "2348058412218", CountryCode = C
 var telco = telcoResolver.Resolve(apiRequest.CountryCode, apiRequest.PhoneNumber);
 
 var selector = new SimSwapSelector(apiRequest.CountryCode, telco);
-var omniCoreRequest = mapper.Map(selector, apiRequest);
+var omniCoreRequest = mapper.Map<object, ApiRequest>(selector, apiRequest);
 
 Console.WriteLine(omniCoreRequest.GetType().Name);
 

@@ -2,21 +2,25 @@ using SelectorDemo.OminCoreLib;
 
 namespace SelectorDemo.Core
 {
+    //marker interface
     public interface IConfigMap
     {
         BaseSelector Selector { get; }
-        public abstract IFeatureRequest Map(object input);
     }
 
-    public abstract class ConfigMap<TInput> : IConfigMap
+    public interface IConfigMap<TargetType, SourceType> : IConfigMap
+    {
+        public abstract TargetType Map(SourceType source);
+    }
+
+    public abstract class ConfigMap<TargetType, SourceType> : IConfigMap<TargetType, SourceType>
     {
         public abstract BaseSelector Selector { get; }
 
-        public IFeatureRequest Map(object input)
+        public TargetType Map(SourceType source)
         {
-            return OnMap((TInput)input);
+            return OnMap((SourceType)source);
         }
-
-        public abstract IFeatureRequest OnMap(TInput input);
+        public abstract TargetType OnMap(SourceType source);
     }
 }
