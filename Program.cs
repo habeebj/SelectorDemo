@@ -30,14 +30,14 @@ using var host = Host.CreateDefaultBuilder(args)
 var mapper = host.Services.GetRequiredService<IMapper>();
 var telcoResolver = host.Services.GetRequiredService<ITelcoResolver>();
 
-
 var apiRequest = new ApiRequest { PhoneNumber = "2348058412218", CountryCode = CountryCode.NG };
 
 var telco = telcoResolver.Resolve(apiRequest.CountryCode, apiRequest.PhoneNumber);
 
 var selector = new SimSwapSelector(apiRequest.CountryCode, telco);
-var omniCoreRequest = mapper.Map<object, ApiRequest>(selector, apiRequest);
+var omniCoreRequest = mapper.Map(apiRequest, selector);
+
+Console.WriteLine(selector.Key);
 
 Console.WriteLine(omniCoreRequest.GetType().Name);
-
-await host.RunAsync();
+Console.ReadLine();

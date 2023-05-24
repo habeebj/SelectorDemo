@@ -4,6 +4,7 @@ namespace SelectorDemo.Core
 {
     public interface IMapper
     {
-        TargetType Map<TargetType, SourceType>(BaseSelector selector, SourceType source);
+        dynamic Map<SourceType>(SourceType source, BaseSelector selector);
+        TargetType Map<TargetType,SourceType>(SourceType source, BaseSelector<TargetType> selector);
     }
 }

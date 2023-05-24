@@ -10,19 +10,18 @@ namespace SelectorDemo.Core
         {
             services.TryAddSingleton<IMapper, Mapper>();
 
-            if (assemblies.Count() == 0)
-            {
-                assemblies = new Assembly[] { Assembly.GetExecutingAssembly() };
-            }
+            assemblies ??= AppDomain.CurrentDomain.GetAssemblies();
 
-            foreach (var assembly in assemblies)
+            var configMapTypes = assemblies
+                .SelectMany(a =>
+                a.GetTypes()
+                .Where(t =>
+                t.IsAssignableTo(typeof(IConfigMap))
+                && !t.IsAbstract && !t.IsInterface));
+
+            foreach (var configMapType in configMapTypes)
             {
-                var configMapTypes = assembly.GetTypes().Where(t => t.IsAssignableTo(typeof(IConfigMap)) && !t.IsAbstract && !t.IsInterface);
-              
-                foreach (var configMapType in configMapTypes)
-                {
-                    services.AddTransient(typeof(IConfigMap), configMapType);
-                }
+                services.AddTransient(typeof(IConfigMap), configMapType);
             }
 
             return services;

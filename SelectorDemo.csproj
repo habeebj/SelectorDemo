@@ -18,4 +18,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="*.json" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+
 </Project>

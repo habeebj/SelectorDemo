@@ -15,10 +15,10 @@ namespace SelectorDemo.Services
 
         public Telco Resolve(CountryCode countryCode, string phoneNumber)
         {
-            var telco = _telcosAppSetting.TelcosPrefix
-                .Where(x =>
+            var telco = _telcosAppSetting
+                .Telcos
+                .FirstOrDefault(x => 
                 x.IsMatch(countryCode, phoneNumber))
-                .FirstOrDefault()
                 ?? throw new ArgumentException("Invalid Phone number");
 
             return Enum.Parse<Telco>(telco.Name, ignoreCase: true);
