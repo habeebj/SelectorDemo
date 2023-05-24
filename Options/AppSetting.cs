@@ -7,10 +7,11 @@ namespace SelectorDemo.Options
     {
         public string Name { get; set; } = null!;
         public CountryCode CountryCode { get; set; }
-        public string RegexExpression { get; set; } = null!;
+        public string Pattren { get; set; } = null!;
+
         public bool IsMatch(CountryCode countryCode, string phoneNumber)
         {
-            return new Regex(this.RegexExpression).IsMatch(phoneNumber) && this.CountryCode == countryCode;
+            return new Regex(this.Pattren).IsMatch(phoneNumber) && this.CountryCode == countryCode;
         }
     }
 
